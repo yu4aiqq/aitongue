@@ -18,8 +18,8 @@ def login():
     用户登录
     :return: openid 用户唯一凭证
     """
-    appid = 'wx6071c183594a411b'    # 小程序的appid
-    secret = 'c1b38d99cfe3702ff4f0e1e60c2e2d59'    # 小程序的secretkey
+    appid = 'your appid'    # 小程序的appid
+    secret = 'you secretkey'    # 小程序的secretkey
     # 获取参数
     code = request.get_json()['code']
     # 请求地址
