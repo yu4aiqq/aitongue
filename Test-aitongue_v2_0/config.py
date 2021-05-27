@@ -10,10 +10,10 @@ class Config(object):
     """配置信息"""
     # 数据库配置
     HOSTNAME = '127.0.0.1'
-    DATABASE = 'aitongue'
+    DATABASE = 'aitongue'    # your database
     PORT = 3306
-    USERNAME = 'root'
-    PASSWORD = 'root'
+    USERNAME = 'root'    # your username
+    PASSWORD = 'root'    # you password
 
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@{}:{}/{}'.format(USERNAME, PASSWORD, HOSTNAME, PORT, DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
