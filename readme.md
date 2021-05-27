@@ -32,26 +32,26 @@ pip install -r requirements.txt
 
 
 - **根目录-Test-aitongue_v2_0（测试文件暂不做介绍）**
-  - **face_img：**保存面部图片信息
-  - **lg_aitongue：**逻辑实现文件
-    - **api_1_0：**存放视图（包括初始化文件，登录，体质记录，面诊，量表保存，个人信息保存和个人页面等）
-    - **__init__.py：**项目初始化文件（包括app，db和flask后台）
-    - **models.py：**数据库映射文件
-    - **response_code.py：**全局错误码
-  - **libs：**腾讯云对象存储（暂未使用）
-  - **log：**日志文件
-  - **migrations：**数据库迁移文件（如需重新迁移则需删除）
-  - **utils：**自定义文件
-    - **ai_tongue：**舌诊逻辑（这部分是第一版的改写，因此没有那么规范化，请谅解）
-      - **upload_picture：**用于对用户舌头图片的接收和上传（中间仓库的作用，类似对象存储），如果使用对象存储，在picSegment.py，runModel3.py和tongue_diagnosis.py中修改文件路径，然后删掉该文件夹即可
-      - **constant.py：**常量文件
-      - **picSegment.py：**舌头分割及检测逻辑代码
-      - **runModel3.py：**舌头图像分类模型代码
-      - **tongue_diagnosis.py：**舌诊逻辑文件
-    - **commons：**存放自定义的函数
-  - **config.py：**配置文件（包括mysql配置等）
-  - **manage.py：**主入口文件
-  - **requirements.txt：**Python第三方库版本文件
+  - face_img：保存面部图片信息
+  - lg_aitongue：逻辑实现文件
+    - api_1_0：存放视图（包括初始化文件，登录，体质记录，面诊，量表保存，个人信息保存和个人页面等）
+    - __init__.py：项目初始化文件（包括app，db和flask后台）
+    - models.py：数据库映射文件
+    - response_code.py：全局错误码
+  - libs：腾讯云对象存储（暂未使用）
+  - log：日志文件
+  - migrations：数据库迁移文件（如需重新迁移则需删除）
+  - utils：自定义文件
+    - ai_tongue：舌诊逻辑（这部分是第一版的改写，因此没有那么规范化，请谅解）
+      - upload_picture：用于对用户舌头图片的接收和上传（中间仓库的作用，类似对象存储），如果使用对象存储，在picSegment.py，runModel3.py和tongue_diagnosis.py中修改文件路径，然后删掉该文件夹即可
+      - constant.py：常量文件
+      - picSegment.py：舌头分割及检测逻辑代码
+      - runModel3.py：舌头图像分类模型代码
+      - tongue_diagnosis.py：舌诊逻辑文件
+    - commons：存放自定义的函数
+  - config.py：配置文件（包括mysql配置等）
+  - manage.py：主入口文件
+  - requirements.txt：Python第三方库版本文件
 
 
 
@@ -79,9 +79,6 @@ pip install -r requirements.txt
 
   - 在PyCharm中运行manage.py文件，如果报了类似runserver的错误，则在运行配置中添加runserver
 
-    ![run edit](D:\typora\aitongue img\run edit.png)
-
-    ![parameters](D:\typora\aitongue img\parameters.png)
 
   - 接口测试
 
@@ -106,7 +103,7 @@ pip install -r requirements.txt
 
   - 同样按照本地运行的步骤做数据库迁移，中途可能会报错（access denied for user xxx(using password: YES)），出现该错误可能是用户名和密码不正确，修改config.py文件，将自己的用户名和密码修改一下即可。如果出现其他报错，则自行百度
 
-    ![database config](D:\typora\aitongue img\database config.png)
+
 
   - 在服务器运行manage.py
 
