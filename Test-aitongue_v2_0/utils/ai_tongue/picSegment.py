@@ -6,17 +6,15 @@
 import urllib.request
 import base64
 import json
-import pycocotools.mask as mask_util  # 先pip Cython再pip install pycocotools，好坑
+import pycocotools.mask as mask_util  # 先pip Cython再pip install pycocotools
 import cv2
 import numpy as np
 import requests
 import logging
 
 # client_id 为官网获取的AK， client_secret 为官网获取的SK
-host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=Vhj744Ztf1blBwuendjIGZuX&client_secret=7Q4wESuE4DP8aS0gvZMfUYia9pyTz5TB'
+host = 'your request url'
 response = requests.get(host)
-# token = "24.e02b5cdcccad55ba8599ad7168b4a127.2592000.1603329667.282335-22076750"
-# print(response)
 if response:
     token = response.json()["access_token"]  # 随时更新access_token
 
@@ -44,7 +42,7 @@ def pictureProcess(path):
     params = bytes(params, 'utf8')  # 返回bytes对象
 
     access_token = token  # 根据上面AK和SK获取的access_token
-    request_url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/segmentation/segForminiProgram"  # 模型API地址
+    request_url = "your model api url"  # 模型API地址
     request_url = request_url + "?access_token=" + access_token
     request = urllib.request.Request(url=request_url, data=params)
     request.add_header('Content-Type', 'application/json')  # 增加Content-Type,让网页可以识别

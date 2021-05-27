@@ -19,12 +19,11 @@ def getResult(path):
     """
 
     # client_id 为官网获取的AK， client_secret 为官网获取的SK
-    host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=rhj9lkgM7iwSegewGYQGzzFP&client_secret=GArsViwpOmVy9k1TwX1ghXoneV8vRCsG'
+    host = 'your request url'
     try:
         response = requests.get(host)
     except Exception as e:
         return jsonify(errno=RET.THIRDERR, errmsg='第三方系统异常')
-    # token = "24.fe1b146c2966d72551635a05202c370f.2592000.1603179060.282335-22710328"
     if not response:
         return jsonify(errno=RET.THIRDERR, errmsg='第三方系统异常')
 
@@ -32,7 +31,7 @@ def getResult(path):
 
     classes = ['pinghe', 'qixu', 'qiyu', 'shire', 'tanshi', 'xueyu', 'yangxu', 'yinxu']
 
-    request_url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/classification/aitongue"
+    request_url = "your model api url"
 
     # 读入图片
     with open(path, 'rb') as f:
