@@ -266,3 +266,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 hello:app
 
 
 配置好后，能够使用域名访问，并且能够通过https访问，则说明ssl证书配置成功。这样项目部署大致就完成了。
+
+
+
+ps：在此特别致谢Gaozhi Tang，Chufan Jian，Zhenxiong Wu对舌诊模型和接口编写的贡献
