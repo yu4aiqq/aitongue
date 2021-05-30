@@ -47,13 +47,25 @@ def allowed_file(filename):
 
 
 # 上传文件路由
-@api.route('/tongue/<wechat_id>', methods=['POST'])
-def upload_file(wechat_id):
+@api.route('/tongue', methods=['POST'])
+def upload_file():
     """
     获取用户的舌头图片
     :param wechat_id: 用户微信id
     :return: 返回舌诊结果
     """
+    # 参数获取
+    try:
+        file = request.files['file']
+        wechat_id = request.form.get('wechat_id')
+    except Exception as e:
+        logging.error(e)
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+    
+    # 校验参数
+    if not all([wechat_id, file]):
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
     # 判断用户是否存在
     try:
         wechat = WechatInfo.query.filter_by(openid=wechat_id).first()
@@ -64,12 +76,7 @@ def upload_file(wechat_id):
     if not wechat:
         return jsonify(errno=RET.NOUSER, errmsg='wechat id not exist')
 
-    # 参数获取
-    try:
-        file = request.files['file']
-    except Exception as e:
-        logging.error(e)
-        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
 
     # 舌诊逻辑变量
     message = "null"
