@@ -10,8 +10,8 @@ from lg_aitongue import db
 import logging
 
 
-@api.route('/user_info/<wechat_id>', methods=['POST'])
-def save_user_info(wechat_id):
+@api.route('/user_info', methods=['POST'])
+def save_user_info():
     """
     保存用户个人信息
     :param wechat_id: 用户微信id
@@ -23,6 +23,8 @@ def save_user_info(wechat_id):
     except Exception as e:
         logging.error(e)
         return jsonify(errno=RET.PAPAMERR, errmsg='获取参数失败')
+
+    wechat_id = user_info_dict.get('wechat_id')
     gender = user_info_dict.get('gender')
     age = user_info_dict.get('age')
     height = user_info_dict.get('height')
@@ -31,7 +33,7 @@ def save_user_info(wechat_id):
     medical_history = user_info_dict.get('medical_history')
 
     # 校验参数
-    if not all(['gender', 'age', 'height', 'weight', 'area', 'medical_history']):
+    if not all(['wechat_id', 'gender', 'age', 'height', 'weight', 'area', 'medical_history']):
         return jsonify(errno=RET.PAPAMERR, errmsg='参数不完整')
 
     # 判断用户是否存在
