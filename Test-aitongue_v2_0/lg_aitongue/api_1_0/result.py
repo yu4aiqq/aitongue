@@ -5,18 +5,25 @@
 
 from . import api
 from lg_aitongue.models import WechatInfo, Mouth
-from flask import jsonify
+from flask import jsonify, request
 from lg_aitongue.response_code import RET
 import logging
 
 
-@api.route('/result/<wechat_id>', methods=['GET'])
-def mouth_result(wechat_id):
+@api.route('/result', methods=['GET'])
+def mouth_result():
     """
     返回用户的个人信息
     :param wechat_id: 用户微信id
     :return: 用户的个人信息
     """
+    # 获取参数
+    wechat_id = request.get_json()['wechat_id']
+    
+    # 校验参数
+    if not wechat_id:
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
     # 查询用户是否存在
     try:
         wechat = WechatInfo.query.filter_by(openid=wechat_id).first()
