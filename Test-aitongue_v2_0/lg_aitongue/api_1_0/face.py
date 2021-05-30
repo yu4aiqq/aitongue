@@ -14,13 +14,24 @@ import logging
 import os
 
 
-@api.route('/face/<wechat_id>', methods=['POST'])
-def save_face(wechat_id):
+@api.route('/face', methods=['POST'])
+def save_face():
     """
     保存用户的面部图片
     :param wechat_id: 用户微信id， face_img: 用户面部图片
     :return: 保存成功或错误信息
     """
+    # 获取参数
+    try:
+        face_img = request.files['face_img']
+        wechat_id = request.form.get('wechat_id')
+    except Exception as e:
+        logging.error(e)
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
+    if not all([face_img, wechat_id]):
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
     # 判断用户是否存在
     try:
         wechat = WechatInfo.query.filter_by(openid=wechat_id).first()
@@ -30,13 +41,6 @@ def save_face(wechat_id):
 
     if not wechat:
         return jsonify(errno=RET.NOUSER, errmsg='wechat id not exist')
-
-    # 获取参数
-    try:
-        face_img = request.files['face_img']
-    except Exception as e:
-        logging.error(e)
-        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
 
     # 上传图片到腾讯云
     # filename = face_img.filename
