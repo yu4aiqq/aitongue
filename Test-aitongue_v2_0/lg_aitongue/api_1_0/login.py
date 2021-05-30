@@ -6,7 +6,7 @@
 from . import api
 from flask import request, jsonify
 from lg_aitongue.response_code import RET
-from lg_aitongue.models import WechatInfo
+from lg_aitongue.models import WechatInfo, Mouth, Face, UserInfo, Scale
 from lg_aitongue import db
 import logging
 import requests
@@ -55,3 +55,37 @@ def login():
             return jsonify(errno=RET.DBERR, errmsg='save user id error')
 
     return jsonify(errno=RET.OK, errmsg='OK', data={'openid': openid})
+
+
+@api.route('/logoff', methods=['DELETE'])
+def logoff():
+    """
+    注销用户
+    :return: JSON信息
+    """
+
+    # 获取参数
+    wechat_id = request.get_json()['wechat_id']
+    print(wechat_id)
+    # 校验参数
+    if not wechat_id:
+        return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
+
+    # 删除数据
+    try:
+        Mouth.query.filter_by(wechat_id=wechat_id).delete()
+        Face.query.filter_by(wechat_id=wechat_id).delete()
+        Scale.query.filter_by(wechat_id=wechat_id).delete()
+        UserInfo.query.filter_by(wechat_id=wechat_id).delete()
+        WechatInfo.query.filter_by(openid=wechat_id).delete()
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        logging.error(e)
+        return jsonify(errno=RET.DBERR, errmsg='delete error')
+
+    # print(wechat)
+    #
+    # return "OK"
+
+    return jsonify(errno=RET.OK, errmsg='OK')
