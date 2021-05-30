@@ -25,6 +25,7 @@ def save_scale_info(wechat_id):
         logging.error(e)
         return jsonify(errno=RET.PAPAMERR, errmsg='获取参数失败')
 
+    wechat_id = scale_dict.get('wechat_id')
     body = scale_dict.get('body')
     sweat = scale_dict.get('sweat')
     pain = scale_dict.get('pain')
@@ -37,7 +38,7 @@ def save_scale_info(wechat_id):
     others = scale_dict.get('others')
 
     # 校验参数
-    if not all(['body', 'sweat', 'pain', 'excretion', 'spirit', 'skin', 'mouth', 'immune', 'breath', 'others']):
+    if not all(['wechat_id', 'body', 'sweat', 'pain', 'excretion', 'spirit', 'skin', 'mouth', 'immune', 'breath', 'others']):
         return jsonify(errno=RET.PAPAMERR, errmsg='参数错误')
 
     # 查询用户是否存在
